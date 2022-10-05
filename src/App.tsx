@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, useMemo } from "react";
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
+import {
+  WalletModalProvider,
+  WalletDisconnectButton,
+  WalletMultiButton,
+} from "@solana/wallet-adapter-react-ui";
+import {
+  CoinbaseWalletAdapter,
+  GlowWalletAdapter,
+  PhantomWalletAdapter,
+  SlopeWalletAdapter,
+  SolflareWalletAdapter,
+  SolletExtensionWalletAdapter,
+  SolletWalletAdapter,
+  TorusWalletAdapter,
+  TokenaryWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
+import { clusterApiUrl } from "@solana/web3.js";
+import { ConnectProvider } from "./context/ConnectProvider";
+import { Layout } from "./Layout/Layout";
+import "./App.css";
 
-function App() {
+// Default styles that can be overridden by your app
+require("@solana/wallet-adapter-react-ui/styles.css");
+
+export const App: FC = () => {
+  // You can also provide a custom RPC endpoint.
+  const network = useMemo(() => clusterApiUrl("devnet"), []);
+
+  // const wallets = useMemo(
+  //   () => [
+  //     /**
+  //      * Select the wallets you wish to support, by instantiating wallet adapters here.
+  //      *
+  //      * Common adapters can be found in the npm package `@solana/wallet-adapter-wallets`.
+  //      * That package supports tree shaking and lazy loading -- only the wallets you import
+  //      * will be compiled into your application, and only the dependencies of wallets that
+  //      * your users connect to will be loaded.
+  //      */
+  //     new PhantomWalletAdapter(),
+  //   ],
+  //   []
+  // );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <ConnectionProvider endpoint={network}>
+    //   <WalletProvider wallets={wallets} autoConnect> */}
+    //   <WalletModalProvider>
+    <>
+      {/* <WalletMultiButton /> */}
+      {/* <WalletDisconnectButton /> */}
+      <ConnectProvider>
+        <Layout />
+      </ConnectProvider>
+    </>
   );
-}
-
-export default App;
+};

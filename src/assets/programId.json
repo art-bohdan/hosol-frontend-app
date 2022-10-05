@@ -1,0 +1,217 @@
+{
+  "version": "0.1.0",
+  "name": "hostsol",
+  "instructions": [],
+  "state": {
+    "struct": {
+      "name": "Config",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "publicKey"
+          },
+          {
+            "name": "feeInLamports",
+            "type": "u64"
+          },
+          {
+            "name": "alreadyStoredFiles",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    "methods": [
+      {
+        "name": "new",
+        "accounts": [
+          {
+            "name": "signer",
+            "isMut": true,
+            "isSigner": true
+          }
+        ],
+        "args": [
+          {
+            "name": "initializeParams",
+            "type": {
+              "defined": "InitializeParams"
+            }
+          }
+        ]
+      },
+      {
+        "name": "storeFile",
+        "accounts": [
+          {
+            "name": "signer",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "dataStorage",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "storeFileParams",
+            "type": {
+              "defined": "StoreFileParams"
+            }
+          }
+        ]
+      },
+      {
+        "name": "modifyFile",
+        "accounts": [
+          {
+            "name": "signer",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "dataStorage",
+            "isMut": true,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "modifyFileParams",
+            "type": {
+              "defined": "ModifyFileParams"
+            }
+          }
+        ]
+      },
+      {
+        "name": "unboundFileStorage",
+        "accounts": [
+          {
+            "name": "signer",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "dataStorage",
+            "isMut": true,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "unboundFileParams",
+            "type": {
+              "defined": "UnboundFileParams"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "accounts": [
+    {
+      "name": "DataStorage",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "storageTotalSpace",
+            "type": "u128"
+          },
+          {
+            "name": "dataSpace",
+            "type": "u128"
+          },
+          {
+            "name": "dataOwner",
+            "type": "publicKey"
+          },
+          {
+            "name": "data",
+            "type": "bytes"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "InitializeParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "feeInLamports",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ModifyFileParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "path",
+            "type": "bytes"
+          },
+          {
+            "name": "data",
+            "type": "bytes"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StoreFileParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "path",
+            "type": "bytes"
+          },
+          {
+            "name": "data",
+            "type": "bytes"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UnboundFileParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "path",
+            "type": "bytes"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Signer is not authorized"
+    },
+    {
+      "code": 6001,
+      "name": "NotEnoughSpace",
+      "msg": "Not enough space to override storage"
+    }
+  ]
+}

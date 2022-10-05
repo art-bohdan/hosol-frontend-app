@@ -1,0 +1,16 @@
+.container {
+  height: 100%;
+  width: 100%;
+}
+
+.contentWrapper {
+  height: 100%;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  background: linear-gradient(to right, #4568dc, #b06ab3)
+}

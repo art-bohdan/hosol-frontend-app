@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2020",
     "lib": [
       "dom",
       "dom.iterable",
@@ -20,7 +20,10 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ]
+  "paths": {
+    "crypto": [
+      "node_modules/crypto-js"
+    ]
+  },
+  "include": ["src/**/*"],
 }
